@@ -8,6 +8,8 @@ app.use(express.json())
 app.use(cookieParser())
 const allowedOrigins = [
     "http://localhost:5173",
+    "http://localhost:3000",
+    "https://interview-resume-gamma.vercel.app",
     process.env.FRONTEND_URL
 ];
 
