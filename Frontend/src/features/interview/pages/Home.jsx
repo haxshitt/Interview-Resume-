@@ -57,7 +57,18 @@ const Home = () => {
     }
 
     const handleGenerateReport = async () => {
-        const resumeFile = resumeInputRef.current.files[ 0 ]
+        const resumeFile = resumeInputRef.current?.files?.[ 0 ]
+        
+        if (!jobDescription || jobDescription.trim() === '') {
+            alert("Please provide a Target Job Description.");
+            return;
+        }
+
+        if (!resumeFile && (!selfDescription || selfDescription.trim() === '')) {
+            alert("Please provide either a Resume or a Self Description.");
+            return;
+        }
+
         setGenerating(true)
         try {
             const data = await generateReport({ jobDescription, selfDescription, resumeFile })
