@@ -22,12 +22,14 @@ export const useInterview = () => {
             response = await generateInterviewReport({ jobDescription, selfDescription, resumeFile })
             setReport(response.interviewReport)
         } catch (error) {
-            console.log(error)
+            if (error.response?.status !== 401) {
+                console.error(error)
+            }
         } finally {
             setLoading(false)
         }
 
-        return response.interviewReport
+        return response?.interviewReport || null
     }
 
     const getReportById = async (interviewId) => {
@@ -37,11 +39,13 @@ export const useInterview = () => {
             response = await getInterviewReportById(interviewId)
             setReport(response.interviewReport)
         } catch (error) {
-            console.log(error)
+            if (error.response?.status !== 401) {
+                console.error(error)
+            }
         } finally {
             setLoading(false)
         }
-        return response.interviewReport
+        return response?.interviewReport || null
     }
 
     const getReports = async () => {
@@ -51,12 +55,14 @@ export const useInterview = () => {
             response = await getAllInterviewReports()
             setReports(response.interviewReports)
         } catch (error) {
-            console.log(error)
+            if (error.response?.status !== 401) {
+                console.error(error)
+            }
         } finally {
             setLoading(false)
         }
 
-        return response.interviewReports
+        return response?.interviewReports || []
     }
 
     const getResumePdf = async (interviewReportId) => {
@@ -72,7 +78,9 @@ export const useInterview = () => {
             link.click()
         }
         catch (error) {
-            console.log(error)
+            if (error.response?.status !== 401) {
+                console.error(error)
+            }
         } finally {
             setLoading(false)
         }
